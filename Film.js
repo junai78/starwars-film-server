@@ -14,15 +14,6 @@ mongoose
     console.log('Mongoose connetion error: ', error);
   });
 
-// const schema = mongoose.Schema({
-//   title: { type: String },
-//   year: { type: String },
-//   genre: { type: String },
-//   actors: { type: String },
-//   plot: { type: String },
-//   poster: { type: String }
-// });
-
 //no image - how to implement
 const schema = mongoose.Schema({
   title: { type: String },
