@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const db =
-  'mongodb://moviewebapi:abc123456@ds141043.mlab.com:41043/movie-web-api';
+  'mongodb://starwars-film-assignment:abc123@ds113134.mlab.com:13134/starwars-film-assignment';
 
 mongoose
   .connect(
@@ -23,6 +23,9 @@ const schema = mongoose.Schema({
   poster: { type: String }
 });
 
-const Movie = mongoose.model('Movie', schema, 'movieCollection');
+//title, episode_id, opening_crawl, director, producer, release_date
+//no image - how to implement
 
-module.exports = Movie;
+const Film = mongoose.model('Film', schema, 'filmCollection');
+
+module.exports = Film;

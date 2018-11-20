@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const axios = require('axios');
-const Movie = require('./Movie');
+const Film = require('./Film');
 //const path = require('path'); //---heroku---
 const cors = require('cors');
 const apikey = '385e80';
@@ -26,7 +26,7 @@ app.get('/getmovie', (req, res) => {
   axios
     .get(querystr)
     .then(response => {
-      const movie = new Movie({
+      const film = new Film({
         title: response.data.Title,
         year: response.data.Year,
         genre: response.data.Genre,
@@ -34,11 +34,11 @@ app.get('/getmovie', (req, res) => {
         plot: response.data.Plot,
         poster: response.data.Poster
       });
-      if (!movie.title) {
+      if (!film.title) {
         res.status(200).json('Not found');
         return;
       }
-      movie
+      film
         .save()
         .then(response => {
           res.status(200).json(response);
@@ -54,7 +54,7 @@ app.get('/getmovie', (req, res) => {
 
 //localhost:5000/getallmovies
 app.get('/getallmovies', (req, res) => {
-  Movie.find({})
+  Film.find({})
     .then(response => {
       res.status(200).send(response);
     })
@@ -65,7 +65,7 @@ app.get('/getallmovies', (req, res) => {
 
 //localhost:5000/deletemovie?title=MovieTitle
 app.get('/deletemovie', (req, res) => {
-  Movie.deleteMany({ title: req.query.title })
+  Film.deleteMany({ title: req.query.title })
     .then(response => {
       res.status(200).json(response);
     })
