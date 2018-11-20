@@ -18,8 +18,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-//localhost:5000/getmovie?title=MovieTitle
-app.get('/getmovie', (req, res) => {
+//localhost:5000/getfilm?title=MovieTitle
+app.get('/getfilm', (req, res) => {
   const title = req.query.title;
   const querystr = `http://www.omdbapi.com/?t=${title}&apikey=${apikey}`;
 
@@ -53,7 +53,7 @@ app.get('/getmovie', (req, res) => {
 });
 
 //localhost:5000/getallmovies
-app.get('/getallmovies', (req, res) => {
+app.get('/getallfilm', (req, res) => {
   Film.find({})
     .then(response => {
       res.status(200).send(response);
@@ -63,8 +63,8 @@ app.get('/getallmovies', (req, res) => {
     });
 });
 
-//localhost:5000/deletemovie?title=MovieTitle
-app.get('/deletemovie', (req, res) => {
+//localhost:5000/deletefilm?title=MovieTitle
+app.get('/deletefilm', (req, res) => {
   Film.deleteMany({ title: req.query.title })
     .then(response => {
       res.status(200).json(response);
