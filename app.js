@@ -4,7 +4,6 @@ const axios = require('axios');
 const Film = require('./Film');
 //const path = require('path'); //---heroku---
 const cors = require('cors');
-// const apikey = '385e80';
 
 const port = process.env.PORT || 2000;
 
@@ -18,7 +17,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-//localhost:2000/getfilm?title=MovieTitle
+//localhost:2000/getfilm?title=FilmTitle
 app.get('/getfilm', (req, res) => {
   const title = req.query.title;
   const querystr = `https://swapi.co/api/films/?search=${title}`;
@@ -66,7 +65,7 @@ app.get('/getallfilms', (req, res) => {
     });
 });
 
-//localhost:2000/deletefilm?title=MovieTitle
+//localhost:2000/deletefilm?title=FilmTitle
 app.get('/deletefilm', (req, res) => {
   Film.deleteMany({ title: req.query.title })
     .then(response => {
