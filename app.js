@@ -27,14 +27,6 @@ app.get('/getfilm', (req, res) => {
     .get(querystr)
     .then(response => {
       const film = new Film({
-        // title: response.data.Title,
-        // year: response.data.Year,
-        // genre: response.data.Genre,
-        // actors: response.data.Actors,
-        // plot: response.data.Plot,
-        // poster: response.data.Poster
-
-        //correct?
         title: response.data.results[0].title,
         episode_id: response.data.results[0].episode_id,
         opening_crawl: response.data.results[0].opening_crawl,
