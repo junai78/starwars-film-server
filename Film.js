@@ -14,17 +14,25 @@ mongoose
     console.log('Mongoose connetion error: ', error);
   });
 
+// const schema = mongoose.Schema({
+//   title: { type: String },
+//   year: { type: String },
+//   genre: { type: String },
+//   actors: { type: String },
+//   plot: { type: String },
+//   poster: { type: String }
+// });
+
+//no image - how to implement
 const schema = mongoose.Schema({
   title: { type: String },
-  year: { type: String },
-  genre: { type: String },
-  actors: { type: String },
-  plot: { type: String },
-  poster: { type: String }
+  episode_id: { type: String },
+  opening_crawl: { type: String },
+  director: { type: String },
+  producer: { type: String },
+  release_date: { type: String }
+  // image: { type: String }
 });
-
-//title, episode_id, opening_crawl, director, producer, release_date
-//no image - how to implement
 
 const Film = mongoose.model('Film', schema, 'filmCollection');
 

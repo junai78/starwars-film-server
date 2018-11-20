@@ -4,7 +4,7 @@ const axios = require('axios');
 const Film = require('./Film');
 //const path = require('path'); //---heroku---
 const cors = require('cors');
-const apikey = '385e80';
+// const apikey = '385e80';
 
 const port = process.env.PORT || 2000;
 
@@ -18,21 +18,30 @@ app.use(function(req, res, next) {
   next();
 });
 
-//localhost:5000/getfilm?title=MovieTitle
+//localhost:2000/getfilm?title=MovieTitle
 app.get('/getfilm', (req, res) => {
   const title = req.query.title;
-  const querystr = `http://www.omdbapi.com/?t=${title}&apikey=${apikey}`;
+  const querystr = `https://swapi.co/api/films/?search=${title}`;
 
   axios
     .get(querystr)
     .then(response => {
       const film = new Film({
-        title: response.data.Title,
-        year: response.data.Year,
-        genre: response.data.Genre,
-        actors: response.data.Actors,
-        plot: response.data.Plot,
-        poster: response.data.Poster
+        // title: response.data.Title,
+        // year: response.data.Year,
+        // genre: response.data.Genre,
+        // actors: response.data.Actors,
+        // plot: response.data.Plot,
+        // poster: response.data.Poster
+
+        //correct?
+        title: response.data.results[0].title,
+        episode_id: response.data.results[0].episode_id,
+        opening_crawl: response.data.results[0].opening_crawl,
+        director: response.data.results[0].director,
+        producer: response.data.results[0].producer,
+        release_date: response.data.results[0].release_date
+        // image:
       });
       if (!film.title) {
         res.status(200).json('Not found');
@@ -46,14 +55,16 @@ app.get('/getfilm', (req, res) => {
         .catch(error => {
           res.status(400).json(error);
         });
+
+      // console.log(response.data.results[]);
     })
     .catch(error => {
       res.status(400).json(error);
     });
 });
 
-//localhost:5000/getallmovies
-app.get('/getallfilm', (req, res) => {
+//localhost:2000/getallfilms
+app.get('/getallfilms', (req, res) => {
   Film.find({})
     .then(response => {
       res.status(200).send(response);
@@ -63,7 +74,7 @@ app.get('/getallfilm', (req, res) => {
     });
 });
 
-//localhost:5000/deletefilm?title=MovieTitle
+//localhost:2000/deletefilm?title=MovieTitle
 app.get('/deletefilm', (req, res) => {
   Film.deleteMany({ title: req.query.title })
     .then(response => {
