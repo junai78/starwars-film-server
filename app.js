@@ -28,7 +28,6 @@ app.get('/getfilm', (req, res) => {
 
   axios.get(querystr2).then(response => {
     imageUrl = casting.cast(String, response.data.Poster);
-    console.log(imageUrl);
   });
 
   axios
