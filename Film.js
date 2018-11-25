@@ -21,8 +21,8 @@ const schema = mongoose.Schema({
   opening_crawl: { type: String },
   director: { type: String },
   producer: { type: String },
-  release_date: { type: String }
-  // image: { type: String }
+  release_date: { type: String },
+  image: { type: String }
 });
 
 const Film = mongoose.model('Film', schema, 'filmCollection');
