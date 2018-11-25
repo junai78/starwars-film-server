@@ -4,6 +4,8 @@ const axios = require('axios');
 const Film = require('./Film');
 //const path = require('path'); //---heroku---
 const cors = require('cors');
+var casting = require('casting');
+const apikey = '385e80';
 
 const port = process.env.PORT || 2000;
 
@@ -20,10 +22,17 @@ app.use(function(req, res, next) {
 //localhost:2000/getfilm?title=FilmTitle
 app.get('/getfilm', (req, res) => {
   const title = req.query.title;
-  const querystr = `https://swapi.co/api/films/?search=${title}`;
+  const querystr1 = `https://swapi.co/api/films/?search=${title}`;
+  const querystr2 = `http://www.omdbapi.com/?t=${title}&apikey=${apikey}`;
+  imageUrl = '';
+
+  axios.get(querystr2).then(response => {
+    imageUrl = casting.cast(String, response.data.Poster);
+    console.log(imageUrl);
+  });
 
   axios
-    .get(querystr)
+    .get(querystr1)
     .then(response => {
       const film = new Film({
         title: response.data.results[0].title,
@@ -31,8 +40,8 @@ app.get('/getfilm', (req, res) => {
         opening_crawl: response.data.results[0].opening_crawl,
         director: response.data.results[0].director,
         producer: response.data.results[0].producer,
-        release_date: response.data.results[0].release_date
-        // image:
+        release_date: response.data.results[0].release_date,
+        poster: imageUrl
       });
       if (!film.title) {
         res.status(200).json('Not found');
@@ -46,8 +55,6 @@ app.get('/getfilm', (req, res) => {
         .catch(error => {
           res.status(400).json(error);
         });
-
-      // console.log(response.data.results[]);
     })
     .catch(error => {
       res.status(400).json(error);

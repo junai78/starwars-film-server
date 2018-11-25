@@ -14,7 +14,6 @@ mongoose
     console.log('Mongoose connetion error: ', error);
   });
 
-//no image - how to implement
 const schema = mongoose.Schema({
   title: { type: String },
   episode_id: { type: String },
@@ -22,7 +21,7 @@ const schema = mongoose.Schema({
   director: { type: String },
   producer: { type: String },
   release_date: { type: String },
-  image: { type: String }
+  poster: { type: String }
 });
 
 const Film = mongoose.model('Film', schema, 'filmCollection');
